@@ -16,9 +16,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -61,7 +59,7 @@ const Sidebar = () => {
     })
       .then((val) => val.json())
       .then((res) => {
-        var data2 = res.users.filter((obj) => obj._id != currentUser._id)
+        var data2 = res.users.filter((obj) => obj?._id != currentUser?._id)
         setUser(data2)
       })
       .catch((err) => console.log(err))
@@ -105,7 +103,7 @@ const Sidebar = () => {
       </div>
       <div style={{ textAlign: 'center' }}>
         <button className="add-groups" onClick={handleOpen}>
-          Add New Group
+          Create New Group
         </button>
       </div>
       <Modal
@@ -127,12 +125,13 @@ const Sidebar = () => {
               Group Options
             </Typography>
             <input type="text" placeholder='Enter the Group Name..' className='Input' value={groupName} onChange={(e) => setGroupName(e.target.value)} required />
+            <p>Add members</p>
             <Search users={user} setUsers={setUser} onClickHandler={handleOptionToggle} />
             <div style={{
               display: 'flex',
               flexWrap: 'wrap'
             }}>
-              {user.map((option) => (
+              {user.slice(0, 4).map((option) => (
                 <Button
                   key={option._id}
                   variant={selectedOptions.includes(option._id) ? 'contained' : 'outlined'}

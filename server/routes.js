@@ -29,7 +29,7 @@ app.post('/api/login', async (req, res) => {
     })
 
     if (!user) {
-        return { status: 'error', error: 'Email does not exists' }
+        return res.json({ status: 'error', error: 'Email does not exists' })
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -208,9 +208,9 @@ app.post('/api/create-groupChat', async (req, res) => {
             .populate("users", "-password")
             .populate("groupAdmin", "-password");
 
-        res.status(200).json(fullGroupChat);
+        res.status(200).json(fullGroupChat); 
     } catch (error) {
-        res.status(400);
+        res.status(400); 
         throw new Error(error.message);
     }
 });
@@ -228,7 +228,7 @@ app.post('/api/update-group', async (req, res) => {
 
         res.status(200).json(updatedGroup);
     }
-    catch (error) {
+    catch (error) { 
         res.status(400);
         throw new Error(error.message);
     }

@@ -4,6 +4,7 @@ import { AuthContext } from '../Context/AuthContext'
 import url from '../url'
 const Login = () => {
   const [err, Seterr] = useState(false)
+  const [errMsg, SeterrMsg] = useState("")
   const navigate = useNavigate()
   const { currentUser, setCurrentUser } = useContext(AuthContext)
   const init = () => {
@@ -43,14 +44,19 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.user) {
+        console.log(data)
+        if (data.status == 'ok') {
           localStorage.setItem('token', data.token)
           setCurrentUser(data.user)
 
           alert('Login successful')
           navigate('/')
         } else {
-          alert('Please check your username and password')
+          if (data.error)
+            SeterrMsg(data.error)
+          else
+            SeterrMsg("Something went Wrong!")
+          Seterr(true)
         }
       })
       .catch((err) => Seterr(true))
@@ -60,8 +66,7 @@ const Login = () => {
   return (
     <div className='container'>
       <div className="wrapper">
-        <h1>Chart App</h1>
-        <span>Log In</span>
+        <h2>Log In</h2>
         <form onSubmit={handleSubmit}>
           <p>Email:</p>
           <input type="email" name="" id="" />
@@ -71,7 +76,7 @@ const Login = () => {
             <button type='submit'>log in</button>
           </div>
         </form>
-        {err && <span style={{ color: 'red' }}>Incorrect Password or something went wrong !</span>}
+        {err && <span style={{ color: 'red' }}>{errMsg}!</span>}
         <span>Dont have an account? <a href="/register">Register</a></span>
       </div>
     </div>

@@ -37,7 +37,8 @@ const Input = ({ messages, setMessages }) => {
       }
     }, timerLength);
   }
-  const handleSend = () => {
+  const handleSend = (e) => {
+    e.preventDefault()
     fetch(`${url}/send-messages`, {
       method: "POST",
       headers: {
@@ -67,17 +68,12 @@ const Input = ({ messages, setMessages }) => {
   }
 
   return (
-    <div className='Input'>
-      <input type="text" placeholder='write something....' onChange={handleTyping} value={text} required />
-      <div className="send">
-        {/* <img src={attach} alt="" />
-        <input type="file" style={{ display: "none" }} id="file" onChange={e => setImg(e.target.files[0])} />
-        <label htmlFor="file">
-          <img src={imgs} alt="" />
-        </label> */}
-        <button onClick={handleSend} disabled={dis}><img src={send} alt="" srcset="" /></button>
-      </div>
-    </div>
+    <>
+      <form className='Input' onSubmit={handleSend}>
+        <input type="text" placeholder='write something....' onChange={handleTyping} value={text} required />
+      </form>
+        <button onClick={handleSend} disabled={dis} className='send'>SEND</button>
+    </>
   )
 }
 

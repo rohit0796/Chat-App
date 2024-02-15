@@ -37,7 +37,6 @@ const Charts = () => {
       overflowY: 'auto'
     }}>
       {chat?.map((ch, ind) => {
-        console.log(ch)
         var design = false;
         if (unread.some((obj) => {
           return ch._id == obj.Chat._id;
@@ -59,10 +58,10 @@ const Charts = () => {
               else
                 setSelectedChat({ ...ch })
             }}>
-              <img className='Userchat-img' src={getSenderFull(currentUser, ch.users)?.pic} alt="" />
+              <img className='Userchat-img' src={getSenderFull(currentUser, ch?.users)?.pic} alt="" />
               <div className="userchartinfo">
                 <span>{!ch.isGroupChat
-                  ? getSender(currentUser, ch.users)
+                  ? getSender(currentUser, ch?.users)
                   : ch.chatName}</span>
                 <p>{(ch.isGroupChat ? `${ch.latestMessage.sender.name} : ${ch.latestMessage?.content}` : ch.latestMessage?.content)}</p>
               </div>

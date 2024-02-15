@@ -14,25 +14,24 @@ import { AuthContext } from '../Context/AuthContext'
 import { getSender, getSenderFull } from '../UserLogic'
 import socket from '../socket'
 import url from '../url'
-import Search from './Search'
 import Allusers from './Allusers'
+import back  from '../img/arrow.png'
 const Chart = () => {
   const [messages, setMessages] = useState([]);
-  const { selectedChat, currentUser } = useContext(AuthContext)
+  const { selectedChat, currentUser, setSelectedChat } = useContext(AuthContext)
   const [show, setShow] = useState(false);
   const [aduserModal, setaduserModal] = useState(false);
   const [chatName, setchatName] = useState('')
   const [groupUsers, setGroupUsers] = useState([])
   const [socketConnected, setsocketConnected] = useState(false);
   const [groupModal, setGroupModal] = useState(false);
+  const [IndvModal, setIndvModal] = useState(false);
   const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
     p: 4,
   };
@@ -107,11 +106,30 @@ const Chart = () => {
       </div>}
       {show && <div className='chart' >
         <div className="chartinfo">
-          <div className='display-details' onClick={() => handleOpen(setGroupModal)}>
-            <img src={getSenderFull(currentUser, selectedChat?.users)?.pic} alt="" />
-            <span>{!selectedChat.isGroupChat
-              ? getSender(currentUser, selectedChat.users)
-              : selectedChat.chatName}</span>
+          <div style={{
+            display:'flex',
+            alignItems:"center",
+            justifyContent:'center',
+            gap:2,
+          }}>
+            <button onClick={()=>setSelectedChat({...selectedChat})} style={{
+              border:"none",
+              outline:"none",
+              background:"none",
+              padding:0,
+
+            }}> <img src={back} alt="<-" style={{height: '15px' , width:'15px '}} /> </button>
+            <div className='display-details' onClick={() => {
+              selectedChat.isGroupChat ?
+                handleOpen(setGroupModal)
+                :
+                handleOpen(setIndvModal)
+            }}>
+              <img src={getSenderFull(currentUser, selectedChat?.users)?.pic} alt="" />
+              <span>{!selectedChat.isGroupChat
+                ? getSender(currentUser, selectedChat?.users)
+                : selectedChat.chatName}</span>
+            </div>
           </div>
           <div className="charticon">
             <img src={cam} alt="" />
@@ -151,9 +169,9 @@ const Chart = () => {
 
                       <div className="searchuserchartinfo" key={user?._id}>
                         <div style={{
-                          display:"flex",
-                          alignItems:"center",
-                          gap:'10px'
+                          display: "flex",
+                          alignItems: "center",
+                          gap: '10px'
                         }}>
                           <img className="Search-img" src={user?.pic} alt="" />
                           <span>{user?.name}</span>
@@ -174,6 +192,20 @@ const Chart = () => {
             </Box>
           </Fade>
         </Modal>}
+      <Modal
+        open={IndvModal}
+        onClose={() => handleClose(setIndvModal)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="info-cont">
+            <img src={getSenderFull(currentUser, selectedChat?.users)?.pic} alt="" className="user-img" />
+            <p>Name : {getSender(currentUser, selectedChat?.users)}</p>
+            <p>Email : {getSenderFull(currentUser, selectedChat?.users)?.email}</p>
+          </div>
+        </Box>
+      </Modal>
     </>
   )
 }

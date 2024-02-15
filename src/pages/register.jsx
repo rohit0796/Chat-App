@@ -41,8 +41,7 @@ const Register = () => {
     return (
         <div className="container">
             <div className="wrapper">
-                <h1 className="logo"> chart app</h1>
-                <span className='title'>Register</span>
+                <h2 className='title'>Register</h2>
                 <form onSubmit={handleSubmit}>
                     <p>username:</p>
                     <input type="text" />
