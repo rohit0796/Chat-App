@@ -46,13 +46,13 @@ This is a real time chat app built using React.js, Node.js, Socket.io.
 3. **Run Development server:**
    ```bash
    npm start
-      ```
+   ```
 ### For BackEnd
 1.**Enter to the folder**
    ```bash
    cd Chat-App
    ```
-  ```bash
+   ```bash
    cd server
    ```
 2. **Install Dependecies:**
