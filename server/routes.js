@@ -64,13 +64,13 @@ app.get('/api/fetch-data', async (req, res) => {
     }
 })
 app.get('/api/get-user', async (req, res) => {
-    try {
+    try {  
         const user2 = await Schema.find();
         const users = user2.map((element) => {
           const { password, ...userWithoutPassword } = element.toObject();
           return userWithoutPassword;
         });        
-        res.json({ status: 'ok', users: users });
+        res.json({ status: 'ok', users: users }); 
     } catch (error) {
         console.log(error)
         res.json({ status: 'error', error: 'Something went wrong !!' })

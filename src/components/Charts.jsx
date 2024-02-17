@@ -63,7 +63,7 @@ const Charts = () => {
                 <span>{!ch.isGroupChat
                   ? getSender(currentUser, ch?.users)
                   : ch.chatName}</span>
-                <p>{(ch.isGroupChat ? `${ch.latestMessage.sender.name} : ${ch.latestMessage?.content}` : ch.latestMessage?.content)}</p>
+                <p>{(ch?.isGroupChat ? `${ch?.latestMessage?.sender?.name} : ${ch.latestMessage?.content}` : ch.latestMessage?.content)}</p>
               </div>
             </div>
           </div>

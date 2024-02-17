@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const ENDPOINT = 'https://chat-app-backend-2hyehym6y-rohit0796.vercel.app/'
+const ENDPOINT = 'http://localhost:5000'
 
 var socket = io(ENDPOINT);
 

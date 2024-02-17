@@ -44,7 +44,6 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (data.status == 'ok') {
           localStorage.setItem('token', data.token)
           setCurrentUser(data.user)
