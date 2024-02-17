@@ -67,3 +67,6 @@ This is a real time chat app built using React.js, Node.js, Socket.io.
    ```bash
    npm start
    ```
+### Instructions
+- Change the backend url in the Chat-App/src/url.js to the localhost url where your local server is running.
+- Change the Socket url in the Chat-App/src/socket.js to the localhost url where your local server is running
