@@ -4,7 +4,7 @@ import { AuthContext } from '../Context/AuthContext'
 import url from '../url'
 const Login = () => {
   const [err, Seterr] = useState(false)
-  const [errMsg, SeterrMsg] = useState("")
+  const [errMsg, SeterrMsg] = useState("Something Went wrong")
   const navigate = useNavigate()
   const { currentUser, setCurrentUser } = useContext(AuthContext)
   const init = () => {

@@ -81,7 +81,7 @@ app.post('/api/accessChat', async (req, res) => {
     if (!userid) {
         console.log("UserId param not sent with request");
         return res.sendStatus(400);
-    }
+    } 
 
     var isChat = await Chat.find({
         isGroupChat: false,
