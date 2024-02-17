@@ -1,2 +1,2 @@
- const url = 'https://chat-app-backend-gules-beta.vercel.app/api'
+ const url = 'https://chatapp-y8yi.onrender.com/api'
  export default url;
