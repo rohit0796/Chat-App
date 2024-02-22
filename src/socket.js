@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const ENDPOINT = "http://localhost:5000"//'https://chatapp-y8yi.onrender.com/'
+const ENDPOINT = "https://chatapp-y8yi.onrender.com/"//'http://localhost:5000/'
 
 var socket = io(ENDPOINT);
 
