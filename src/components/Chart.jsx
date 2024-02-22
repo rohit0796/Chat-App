@@ -15,10 +15,13 @@ import { getSender, getSenderFull } from '../UserLogic'
 import socket from '../socket'
 import url from '../url'
 import Allusers from './Allusers'
-import back  from '../img/arrow.png'
+import back from '../img/arrow.png'
+import Peer from '../Service/Peer';
+import { useNavigate } from 'react-router-dom'
 const Chart = () => {
+  const navigate = useNavigate()
   const [messages, setMessages] = useState([]);
-  const { selectedChat, currentUser, setSelectedChat } = useContext(AuthContext)
+  const { selectedChat, currentUser, setSelectedChat, setMystream, mystream } = useContext(AuthContext)
   const [show, setShow] = useState(false);
   const [aduserModal, setaduserModal] = useState(false);
   const [chatName, setchatName] = useState('')
@@ -45,7 +48,7 @@ const Chart = () => {
       })
 
     }
-  }, [])
+  }, [socket])
 
   const handleUpdate = () => {
     var obj = selectedChat
@@ -60,6 +63,21 @@ const Chart = () => {
     }).then((val) => val.json())
       .then((res) => console.log(res))
     handleClose(setGroupModal)
+  }
+  const handleVideo = async () => {
+    var stream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    } catch (error) {
+
+      alert("Please allow Microphone and camera access")
+    }
+    if (stream) {
+      setMystream(stream);
+      socket.emit("Join-Lobby", selectedChat?._id)
+      navigate(`/room/${selectedChat?._id}`);
+    }
+
   }
   const getChats = () => {
 
@@ -107,18 +125,18 @@ const Chart = () => {
       {show && <div className='chart' >
         <div className="chartinfo">
           <div style={{
-            display:'flex',
-            alignItems:"center",
-            justifyContent:'center',
-            gap:2,
+            display: 'flex',
+            alignItems: "center",
+            justifyContent: 'center',
+            gap: 2,
           }}>
-            <button onClick={()=>setSelectedChat({...selectedChat})} style={{
-              border:"none",
-              outline:"none",
-              background:"none",
-              padding:0,
+            <button onClick={() => setSelectedChat({ ...selectedChat })} style={{
+              border: "none",
+              outline: "none",
+              background: "none",
+              padding: 0,
 
-            }}> <img src={back} alt="<-" style={{height: '15px' , width:'15px '}} /> </button>
+            }}> <img src={back} alt="<-" style={{ height: '15px', width: '15px ' }} /> </button>
             <div className='display-details' onClick={() => {
               selectedChat.isGroupChat ?
                 handleOpen(setGroupModal)
@@ -132,9 +150,7 @@ const Chart = () => {
             </div>
           </div>
           <div className="charticon">
-            <img src={cam} alt="" />
-            <img src={add} alt="" />
-            <img src={more} alt="" />
+            <img src={cam} alt="" onClick={handleVideo} />
           </div>
         </div>
         <Messages messages={messages} setMessages={setMessages} />

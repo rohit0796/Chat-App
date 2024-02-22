@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import { useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
+import Lobby from './pages/Lobby';
 
 function App() {
   const { currentUser } = useContext(AuthContext)
@@ -27,12 +28,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/'>
-          <Route index element={
-            <Home />
-          }
-          />
+          <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="room/:roomId" element={<Lobby />} />
         </Route>
       </Routes>
     </BrowserRouter>

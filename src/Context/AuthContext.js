@@ -6,6 +6,7 @@ export const AuthContextProvider = ({ children }) => {
     const [selectedChat, setSelectedChat] = useState(null);
     const [repeatFetch, setRepeatFetch] = useState(true);
     const [chat, setChat] = useState(null);
+    const [mystream, setMystream] = useState();
 
     return (
         <AuthContext.Provider value={{
@@ -16,7 +17,9 @@ export const AuthContextProvider = ({ children }) => {
             chat,
             setChat,
             repeatFetch,
-            setRepeatFetch
+            setRepeatFetch,
+            mystream,
+            setMystream
         }}>
             {children}
         </AuthContext.Provider>
